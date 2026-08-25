@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
@@ -31,8 +31,8 @@ app.post("/api/contact", async (req, res) => {
   }
 
   const mailOptions = {
-    from: email,
-    to: process.env.EMAIL_USER,
+    from: process.env.EMAIL_USER,
+    to: email,
     subject: `Portfolio Contact: ${name}`,
     html: `
       <h3>New Portfolio Contact Submission</h3>
@@ -45,7 +45,7 @@ app.post("/api/contact", async (req, res) => {
 
   try {
     await transporter.sendMail(mailOptions);
-    return res.status(200).json({ message: "Email sent successfully!" });
+    return res.status(201).json({ message: "Email sent successfully!" });
   } catch (error) {
     console.error("Nodemailer Error:", error);
     return res.status(500).json({ error: "Failed to send message." });
