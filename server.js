@@ -23,7 +23,7 @@ const transporter = nodemailer.createTransport({
 
 // Initial route
 app.get("/", (req, res) => {
-  res.send("Portfolio backend is up and running...");
+  res.send("The backend is up and running...");
 });
 
 // Contact Route
