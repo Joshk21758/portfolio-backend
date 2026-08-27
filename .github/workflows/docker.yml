@@ -11,8 +11,10 @@ jobs:
       - name: check out code
         uses: actions/checkout@v4
       - name: build docker image
-        run: docker build -t mwansk77/node-app:latest ./Dockerfile
+        run: docker build -t express:latest ../Dockerfile
       - name: docker login
         run: docker login -u "${{secrets.DOCKERHUB_USERNAME}}" -p "${{secrets.DOCKERHUB_PASSWORD}}"
+      - name: tag image
+        run: docker tag express:latest mwansk77/express-app
       - name: push image to hub
-        run: docker push mwansk77/node-app:latest
+        run: docker push mwansk77/express-app
